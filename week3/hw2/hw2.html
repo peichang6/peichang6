@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  </meta>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./normalize.css" />
+  <link rel="stylesheet" href="./hw2style.css" />
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="wrapper">
+      <div class="navbar__site-name">
+         My Website
+      </div>
+      <ul class="navbar__list">
+        <li>Item1</li>
+        <li>Item2</li>
+        <li>Item3</li>
+        <li>Item4</li>
+      </ul>
+      <ul class="mobile__list">
+        <img src="./menu.png" />
+      </ul>
+    </div>
+  </nav>
+  <section class="banner">
+    <h1>Welcome to MyHome</h1>
+  </section>
+  <div class="content">
+    <div class="content__images">
+    </div>
+  </div>
+
+  <script>
+    const request = new XMLHttpRequest()
+    const URL = "https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment.json"
+    request.open('GET', URL, true)
+    request.onload = function () {
+      if (request.status >= 200 && request.status < 400) {
+        const data = JSON.parse(request.responseText)
+        const results = data.result.results
+
+        for (let i = 0; i < 8; i++) {
+          let stitle = results[i].stitle
+          //console.log(stitle)
+          let pic = (results[i].file).toLowerCase().split("jpg")[0] + "jpg"
+          let element = document.createElement("div")
+          document.querySelector(".content__images").appendChild(element)
+          element.outerHTML = `
+            <div><img src=${pic} />
+              <p>${stitle}</p>
+            </div>`
+        }
+      }
+    }
+    request.onerror = function () {
+      console.log('error')
+    }
+    request.send()
+  </script>
+</body>
+
+</html>
