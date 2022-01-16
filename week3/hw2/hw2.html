@@ -30,8 +30,7 @@
     <h1>Welcome to MyHome</h1>
   </section>
   <div class="content">
-    <div class="content__images">
-    </div>
+
   </div>
 
   <script>
@@ -42,24 +41,30 @@
       if (request.status >= 200 && request.status < 400) {
         const data = JSON.parse(request.responseText)
         const results = data.result.results
-
         for (let i = 0; i < 8; i++) {
           let stitle = results[i].stitle
-          //console.log(stitle)
           let pic = (results[i].file).toLowerCase().split("jpg")[0] + "jpg"
-          let element = document.createElement("div")
-          document.querySelector(".content__images").appendChild(element)
-          element.outerHTML = `
-            <div><img src=${pic} />
-              <p>${stitle}</p>
-            </div>`
+          const content__images = document.createElement("div") //新增一個div標籤
+          content__images.setAttribute('class', 'content__images') //定義div標籤的class名稱為 content__images
+          content__images.setAttribute('id', i) //定義div標籤的id名稱為 i
+          const content = document.querySelector(".content");
+          content.appendChild(content__images)  //把 content__images 加到 content下
+          const imgTag = document.createElement("img") // 新增一個img標籤
+          imgTag.src = pic //img來源
+          const img_id = document.getElementById(i)
+          img_id.appendChild(imgTag) // 把圖片新增到 id=i下
+          const textTag = document.createElement("p") //新增一個文字標籤
+          textTag.innerText = stitle //文字內容
+          img_id.appendChild(textTag) //把文字標籤新增到 id=i下
         }
       }
     }
+
     request.onerror = function () {
       console.log('error')
     }
     request.send()
+
   </script>
 </body>
 
