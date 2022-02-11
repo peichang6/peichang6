@@ -63,6 +63,7 @@ def signup():
         name = request.form["name"]
         username = request.form["username"]
         password = request.form["password"]
+        hashed_pwd = generate_password_hash(password).encode("UTF-8")
         mycursor = mydb.cursor()
         mycursor.execute(
             "SELECT username FROM member WHERE username = %s", (username,))
@@ -75,11 +76,12 @@ def signup():
             return redirect(url_for('error', message=data))
         else:
             mycursor.execute("INSERT INTO member(name, username, password) VALUES(%s, %s, %s)",
-                             (name, username, password))
+                             (name, username, hashed_pwd))
             mydb.commit()
             session['name'] = request.form['name']
             session['username'] = request.form['username']
             return redirect(url_for("member"))
+
 
 
 @ app.route("/member/")
