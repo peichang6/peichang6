@@ -34,18 +34,25 @@ def signin():
     password = request.form["password"]
     mycursor = mydb.cursor()
     mycursor.execute(
-        "SELECT username FROM member WHERE username = %s and password = %s", (username, password))
-    result = mycursor.fetchall()
-    if result:
-        for i in result:
-            session["username"] = username
-            return redirect("/member/")
-    elif username == "" or password == " ":
+        "SELECT * FROM member WHERE username = %s", (username,))
+    result = mycursor.fetchone()
+    # print(result)
+    if username == "" or password == "":
         err_code = "請輸入帳號、密碼"
         return redirect(url_for('error', message=err_code))
+    elif result:
+        for i in result:
+            check_pwd = result[3]
+            if check_password_hash(check_pwd, password):
+                session["username"] = username
+                return redirect("/member/")
+            else:
+                err_code = "帳號、密碼輸入錯誤"
+                return redirect(url_for('error', message=err_code))
     else:
-        err_code = "帳號或密碼輸入錯誤"
+        err_code = "帳號、帳號輸入錯誤"
         return redirect(url_for('error', message=err_code))
+
 
 
 @ app.route("/signup/", methods=["POST"])
