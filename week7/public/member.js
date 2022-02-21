@@ -8,16 +8,14 @@ function get_name() {
     })
     .then((data) => {
       // console.log(data)
-      const div = document.createElement("div")
-      div.classList.add("results")
+      const div_result = document.getElementById('result')
       if (data.data) {
         const username = data.data.username
         const name = data.data.name
-        div.textContent = `${username} (${name})`
-        document.getElementsByClassName("result")[0].appendChild(div)
+        div_result.textContent = `${username} (${name})`
+
       } else {
-        div.textContent = "無此會員"
-        document.getElementsByClassName("result")[0].appendChild(div)
+        div_result.textContent = "無此會員"
       }
     })
     .catch(err => console.log("error"))
