@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{url_for('static', filename='normalize.css')}}" />
+  <script src="{{url_for('static', filename='member.js')}}"></script>
+  <title>Welcome</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    header {
+      background: #152C4D;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: #ffffff;
+      padding: 20px;
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    h2.welcome {
+      text-align: center;
+      padding-top: 30px;
+    }
+
+    a {
+      display: block;
+      text-align: center;
+      font-size: 24px;
+    }
+
+    h2.query_text {
+      text-align: center;
+      font-size: 30px;
+      margin-top: 50px;
+    }
+
+    .input_wrapper {
+      text-align: center;
+    }
+
+    .input_field {
+      padding: 8px;
+    }
+
+    button {
+      padding: 6px;
+    }
+
+    .result {
+      margin-top: 12px;
+      text-align: center;
+      font-size: 28px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>歡迎光臨，這是會員頁</h1>
+  </header>
+  <main>
+    <div class=signin＿sys>
+      <h2 class=welcome>{{username}},恭喜您，成功登入系統</h2>
+    </div>
+    <div calss=signout_sys>
+      <a href="/signout">登出系統
+      </a>
+    </div>
+  </main>
+  <div class=query_sys>
+    <h2 class=query_text>查詢會員姓名</h2>
+    <div class=input_wrapper>
+      <input id=input_field type="text" name="search_name" />
+      <button id="submit" onclick="get_name()">查詢</button>
+    </div>
+    <div class=result>
+
+    </div>
+  </div>
+
+</body>
+
+
+
+</html>
